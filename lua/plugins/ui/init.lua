@@ -98,35 +98,44 @@ return {
         config = function(_,opts)
             require('nvim-tree').setup(opts)
         end,
-        opts = {
-            sort_by = "case_sensitive",
-            view = {
-                width = 30,
-                float = {
+        opts = function(_,opts)
+            -- 获取当前终端的高和宽
+            local win_height = vim.fn.winheight(o)
+            local win_width = vim.fn.winwidth(o)
+            local width = math.floor(win_width * 0.4)
+            local height = math.floor(win_height * 0.8)
+            local row = math.floor(win_height* 0.05)
+            local col = math.floor(win_width * 0.3)
+            return {
+                sort_by = "case_sensitive",
+                view = {
+                    width = 30,
+                    float = {
+                        enable = true,
+                        quit_on_focus_loss = true,
+                        open_win_config = {
+                            relative = "editor",
+                            border = "rounded",
+                            width = width,
+                            height = height,
+                            row = row,
+                            col = col,
+                        },
+                    }
+                },
+                renderer = {
+                    group_empty = true,
+                },
+                filters = {
+                    dotfiles = true,
+                },
+                sync_root_with_cwd = true,
+                respect_buf_cwd = true,
+                update_focused_file = {
                     enable = true,
-                    quit_on_focus_loss = true,
-                    open_win_config = {
-                        relative = "editor",
-                        border = "rounded",
-                        width = 100,
-                        height = 50,
-                        row = 50,
-                        col = 50,
-                    },
-                }
-            },
-            renderer = {
-                group_empty = true,
-            },
-            filters = {
-                dotfiles = true,
-            },
-            sync_root_with_cwd = true,
-            respect_buf_cwd = true,
-            update_focused_file = {
-                enable = true,
-                update_root = true
-            },
-        },
+                    update_root = true
+                },
+            }
+        end
     },
 }
