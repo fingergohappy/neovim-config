@@ -14,8 +14,8 @@ wo.numberwidth=1
 -- curosr line
 wo.cursorline=true
 wo.cursorlineopt='screenline'
-wo.signcolumn='yes'
-wo.colorcolumn='120'
+-- wo.signcolumn='yes'
+-- wo.colorcolumn='10'
 
 -- config tab wdith 
 opt.tabstop=4

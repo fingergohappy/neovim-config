@@ -66,10 +66,10 @@ local key_maps = {
             }
         },
         finder = {
-            find_file = {
+            find_project_file = {
                 enable = true,
                 mode = 'n',
-                lhs = '<leader>ff',
+                lhs = '<leader>f.',
                 opts = {
                     desc = "find project file"
                 }
@@ -152,6 +152,32 @@ local key_maps = {
                 lhs = '<leader>fR',
                 opts = {
                     desc = "find resume"
+                }
+            }
+        },
+        code = {
+            comment = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gc',
+                opts = {
+                    desc = "comment / uncomment"
+                }
+            },
+            comment_line = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gcc',
+                opts = {
+                    desc = "comment line"
+                }
+            },
+            comment_text_object = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gc',
+                opts = {
+                    desc = 'text object  comment operate'
                 }
             }
         }

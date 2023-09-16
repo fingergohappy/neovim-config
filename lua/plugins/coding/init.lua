@@ -59,9 +59,7 @@ return {
             }
           local defined_maps = require('config.keymaps').key_maps.plugin_maps.complete
           for func,ncmp_func in pairs(func_maps) do
-              vim.print(func)
               local map_define = defined_maps[func]
-              vim.print(map_define)
               result[map_define.lhs] = ncmp_func
           end
           return result
@@ -105,5 +103,26 @@ return {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
     opts = {},
+  },
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    opts = function (_,opts)
+        -- k: custom define func v: plugin define func
+        local func_maps = {
+                comment = 'comment',
+                comment_line = 'comment_line',
+                comment_text_object = 'textobject',
+        }
+        local map_defines = require('config.keymaps').key_maps.plugin_maps.code
+        local mappings = {}
+        for k,v in pairs(func_maps) do
+            local map_define = map_defines[k]
+            mappings[v] = map_define.lhs
+        end
+        return {
+            mappings = mappings
+        }
+    end
   },
 }
