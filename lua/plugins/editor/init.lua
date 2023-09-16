@@ -2,6 +2,7 @@ local generate_keymaps = require('config.lazy.utils').generate_keymaps
 
 return {
     -- telescope
+    -- -todo  
     {
         'nvim-telescope/telescope.nvim',
         lazy = false,

@@ -8,7 +8,7 @@ return {
         priority = 1000,
         name = "catppuccin",
         opts = {
-            flavour = "mocha",
+            flavour = "macchiato",
             transparent_background = true,
             integrations = {
                 alpha = true,
