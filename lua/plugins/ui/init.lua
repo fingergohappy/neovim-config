@@ -90,10 +90,9 @@ return {
             "ahmedkhalf/project.nvim"
         },
         keys = function(_,keys)
-            local a = generate_keymaps({
+            return generate_keymaps({
                 {"file_tree","toggle","<cmd>NvimTreeToggle<cr>"}
             })
-            return a
         end,
         config = function(_,opts)
             require('nvim-tree').setup(opts)

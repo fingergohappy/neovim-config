@@ -180,6 +180,104 @@ local key_maps = {
                     desc = 'text object  comment operate'
                 }
             }
+        },
+        lsp = {
+            go_to_declaration = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gD',
+                opts = {
+                    desc = 'go to Declaration'
+                }
+            },
+            go_to_definition = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gd',
+                opts = {
+                    desc = 'go to go to definition'
+                }
+            },
+            go_to_implemention = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gi',
+                opts = {
+                    desc = 'go to implementmmention'
+                }
+            },
+            show_documention = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gs',
+                opts = {
+                    desc = 'show documention'
+                }
+            },
+            action = {
+                enable = true,
+                mode = 'n',
+                lhs = '<leader>ca',
+                opts = {
+                    desc = 'show action '
+                }
+            },
+            go_to_type_definition = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gt',
+                opts = {
+                    desc = 'go to type definition'
+                }
+            },
+            next_diagnostic = {
+                enable = true,
+                mode = 'n',
+                lhs = ']d',
+                opts = {
+                    desc = 'next diagnostic'
+                }
+            },
+            prev_diagnostic = {
+                enable = true,
+                mode = 'n',
+                lhs = '[d',
+                opts = {
+                    desc = 'prev diagnostice'
+                }
+            },
+            next_error = {
+                enable = true,
+                mode = 'n',
+                lhs = ']e',
+                opts = {
+                    desc = 'next error'
+                }
+            },
+            prev_error = {
+                enable = true,
+                mode = 'n',
+                lhs = '[e',
+                opts = {
+                    desc = 'prev error'
+                }
+            },
+            next_warning = {
+                enable = true,
+                mode = 'n',
+                lhs = ']w',
+                opts = {
+                    desc = "next warning"
+                }
+            },
+            prev_warning = {
+                enable = true,
+                mode = 'n',
+                lhs = '[w',
+                opts = {
+                    desc = 'prev warning'
+                }
+            },
         }
     }
 }
@@ -192,14 +290,14 @@ local function generate_with_desc_opts(opts,prefix,group,func)
         opts.desc = final_desc.." Desc:"..opts.desc
     else
         opts = {
-            desc = final_desc 
+            desc = final_desc
         }
     end
     return opts
 end
 
 -- 初始化基本的绑定,无需lazy load 
-function M:init_basic_maps()
+function M.init_basic_maps()
     local basic_maps = key_maps.basic_maps
     for group,m in pairs(basic_maps) do 
         for func,define in pairs(m) do

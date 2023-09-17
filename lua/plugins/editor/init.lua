@@ -1,12 +1,12 @@
-local generate_keymaps = require('config.lazy.utils').generate_keymaps
 
 return {
     -- telescope
     -- -todo  
     {
         'nvim-telescope/telescope.nvim',
-        lazy = false,
-        tag = '0.1.3',
+        version = false,
+        -- tag = '0.1.x',
+        -- branch = '0.1.x',
         -- or                              , branch = '0.1.x',
         dependencies = {
             { 'nvim-lua/plenary.nvim'},
@@ -29,7 +29,7 @@ return {
                 {'finder','find_tag','<Nop>'},
                 {'finder','find_root_file','<Nop>'},
             }
-            return generate_keymaps(func_map)
+            return require('config.lazy.utils').generate_keymaps(func_map)
         end,
         opts = {
             extensions = {
@@ -55,7 +55,7 @@ return {
         require('project_nvim.project').on_buf_enter()
     end,
     keys = function(_,keys)
-        return generate_keymaps({})
+        return require('config.lazy.utils').generate_keymaps({})
     end
   }
 }

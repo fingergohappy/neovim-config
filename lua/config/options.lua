@@ -61,3 +61,6 @@ vim.g.loaded_netrwPlugin = 1
 
 opt.foldmethod = "expr"
 opt.foldenable = false
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.splitright = true
+-- opt.verbose = 10
