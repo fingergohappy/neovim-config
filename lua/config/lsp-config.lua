@@ -11,16 +11,40 @@ local lang_config = {
             }
         }
     },
-    pyright = {},
-    jsonls = {},
-    marksman = {},
-    volar = {},
-    dockerls = {},
-    docker_compose_language_service = {},
-    bashls = {},
+    pyright = {
+        settings = {}
+    },
+    jsonls = {
+        settings = {}
+    },
+    marksman = {
+        settings = {}
+    },
+    volar = {
+        settings = {}
+    },
+    dockerls = {
+        settings = {}
+    },
+    docker_compose_language_service = {
+        settings = {}
+    },
+    bashls = {
+        settings = {}
+    },
     -- ocamllsp = {},
-    taplo = {},
-    ruff_lsp = {},
+    taplo = {
+        settings = {}
+    },
+    ruff_lsp = {
+        settings = {}
+    },
+    stylelint_lsp = {
+        settings = {}
+    },
+    biome = {
+        settings = {}
+    }
 }
 
 
@@ -53,6 +77,9 @@ local func_map = {
     prev_error = diagnostic_go_to_with_level(false,"ERROR"),
     next_warning = diagnostic_go_to_with_level(true,"WARN"),
     prev_warning = diagnostic_go_to_with_level(false,"WARN"),
+    format = function() vim.lsp.buf.format { async = true } end
+
+
 }
 
 -- generate key map from define

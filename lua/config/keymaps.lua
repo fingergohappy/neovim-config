@@ -124,9 +124,9 @@ local key_maps = {
             },
             find_old_files = {
                 enable = true,
-                mode = 'n',
-                lhs = "<leader>fo",
-                opts  = {
+                mode   = 'n',
+                lhs    = "<leader>fo",
+                opts   = {
                     desc = "find old files"
                 }
             },
@@ -278,16 +278,24 @@ local key_maps = {
                     desc = 'prev warning'
                 }
             },
+            format = {
+                enable = true,
+                mode = 'n',
+                lhs = 'gf',
+                opts = {
+                    desc = "fort document"
+                }
+            }
         }
     }
 }
 
 M.key_maps = key_maps
 
-local function generate_with_desc_opts(opts,prefix,group,func)
-    local final_desc = prefix.." Group: "..group.." Func: "..func
-    if(opts) then
-        opts.desc = final_desc.." Desc:"..opts.desc
+local function generate_with_desc_opts(opts, prefix, group, func)
+    local final_desc = prefix .. " Group: " .. group .. " Func: " .. func
+    if (opts) then
+        opts.desc = final_desc .. " Desc:" .. opts.desc
     else
         opts = {
             desc = final_desc
@@ -296,24 +304,24 @@ local function generate_with_desc_opts(opts,prefix,group,func)
     return opts
 end
 
--- 初始化基本的绑定,无需lazy load 
+-- 初始化基本的绑定,无需lazy load
 function M.init_basic_maps()
     local basic_maps = key_maps.basic_maps
-    for group,m in pairs(basic_maps) do 
-        for func,define in pairs(m) do
+    for group, m in pairs(basic_maps) do
+        for func, define in pairs(m) do
             if (define.enable) then
-                opts = generate_with_desc_opts(define.opts,[[<Basic Map>]],group,func)
-                vim.keymap.set(define.mode,define.lhs,define.rhs,opts)
+                opts = generate_with_desc_opts(define.opts, [[<Basic Map>]], group, func)
+                vim.keymap.set(define.mode, define.lhs, define.rhs, opts)
             end
         end
     end
 end
 
 --生成 lazy vim 需要的keys形式
-function M.get_lazy_keys(group,func,rhs)
+function M.get_lazy_keys(group, func, rhs)
     local define = M.key_maps.plugin_maps[group][func]
-    local opts = generate_with_desc_opts(define.opts,[[<Plugin Map>]],group,func)
-    return vim.tbl_extend('force',{define.lhs, rhs, mode = define.mode},opts)
+    local opts = generate_with_desc_opts(define.opts, [[<Plugin Map>]], group, func)
+    return vim.tbl_extend('force', { define.lhs, rhs, mode = define.mode }, opts)
 end
 
 return M

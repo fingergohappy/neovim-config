@@ -7,7 +7,7 @@
 
 -- to fix bug :https://github.com/nvim-telescope/telescope.nvim/issues/699
 -- wait telescope update
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-    pattern = { "*" },
-    command = "normal zx",
-})
+-- vim.api.nvim_create_autocmd({ "BufEnter" }, {
+--     pattern = { "*" },
+--     command = "normal zx",
+-- })

@@ -3,6 +3,7 @@ local lsp_config = require('config.lsp-config')
 return {
     {
         "neovim/nvim-lspconfig",
+        enabled = false,
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",

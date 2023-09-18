@@ -3,8 +3,38 @@ local generate_keymaps = require('config.lazy.utils').generate_keymaps
 return {
     -- catppuccin
     {
-        "catppuccin/nvim",
+        "folke/tokyonight.nvim",
         lazy = false,
+        dependencies = {
+            -- "nvim-lualine/lualine.nvim",
+            "nvim-tree/nvim-web-devicons",
+            -- "utilyre/barbecue.nvim",
+            -- "SmiteshP/nvim-navic",
+        },
+        config = function(_, opts)
+            require("tokyonight").setup(opts)
+            -- require('lualine').setup({
+            --     options = {
+            --         theme = 'tokyonight'
+            --     },
+            -- })
+            -- require('barbecue').setup {
+            --     theme = 'tokyonight',
+            -- }
+        end,
+        opts = {
+            style = "storm",
+            transparent = true,
+            terminal_colors = true,
+            styles = {
+                sidebars = "transparent",
+                floats = "transparent"
+            }
+        }
+    },
+    {
+        "catppuccin/nvim",
+        lazy = true,
         priority = 1000,
         name = "catppuccin",
         opts = {
@@ -53,7 +83,7 @@ return {
                 sidebars = "transparent",
                 comments = { italic = true }
             }
-          }
+        }
     },
     {
         "echasnovski/mini.indentscope",
@@ -89,21 +119,21 @@ return {
             "nvim-tree/nvim-web-devicons",
             "ahmedkhalf/project.nvim"
         },
-        keys = function(_,keys)
+        keys = function(_, keys)
             return generate_keymaps({
-                {"file_tree","toggle","<cmd>NvimTreeToggle<cr>"}
+                { "file_tree", "toggle", "<cmd>NvimTreeToggle<cr>" }
             })
         end,
-        config = function(_,opts)
+        config = function(_, opts)
             require('nvim-tree').setup(opts)
         end,
-        opts = function(_,opts)
+        opts = function(_, opts)
             -- 获取当前终端的高和宽
             local win_height = vim.fn.winheight(o)
             local win_width = vim.fn.winwidth(o)
             local width = math.floor(win_width * 0.4)
             local height = math.floor(win_height * 0.8)
-            local row = math.floor(win_height* 0.05)
+            local row = math.floor(win_height * 0.05)
             local col = math.floor(win_width * 0.3)
             return {
                 sort_by = "case_sensitive",
@@ -137,4 +167,86 @@ return {
             }
         end
     },
+
+
+    {
+        "folke/noice.nvim",
+        enabled = false,
+        event = "VeryLazy",
+        opts = {
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
+            -- you can enable a preset for easier configuration
+            presets = {
+                bottom_search = true,         -- use a classic bottom cmdline for search
+                command_palette = true,       -- position the cmdline and popupmenu together
+                long_message_to_split = true, -- long messages will be sent to a split
+                inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+                lsp_doc_border = false,       -- add a border to hover docs and signature help
+            },
+            messages = {
+                -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+                -- This is a current Neovim limitation.
+                enabled = true,  -- enables the Noice messages UI
+                view = "notify", -- default view for messages
+                view_error = "notify", -- view for errors
+                view_warn = "notify", -- view for warnings
+                view_history = "messages", -- view for :messages
+                view_search = "virtualtext", --
+            }
+        }
+    },
+    {
+        "rcarriga/nvim-notify",
+        event = "VeryLazy",
+        dependencies = {
+            "folke/noice.nvim"
+        },
+        keys = {
+            {
+                "<leader>un",
+                function()
+                    require("notify").dismiss({ silent = true, pending = true })
+                end,
+                desc = "Dismiss all Notifications",
+            },
+        },
+        opts = {
+            timeout = 3000,
+            max_height = function()
+                return math.floor(vim.o.lines * 0.75)
+            end,
+            max_width = function()
+                return math.floor(vim.o.columns * 0.75)
+            end,
+        },
+    },
+    -- better vim.ui
+    {
+        "stevearc/dressing.nvim",
+        event = "VeryLazy",
+        init = function()
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.select = function(...)
+                require("lazy").load({ plugins = { "dressing.nvim" } })
+                return vim.ui.select(...)
+            end
+            ---@diagnostic disable-next-line: duplicate-set-field
+            vim.ui.input = function(...)
+                require("lazy").load({ plugins = { "dressing.nvim" } })
+                return vim.ui.input(...)
+            end
+        end,
+    },
+    { 
+        "MunifTanjim/nui.nvim",
+        event = "VeryLazy" ,
+    },
+
 }
