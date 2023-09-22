@@ -1,6 +1,5 @@
 return {
-    -- telescope
-    -- -todo
+    -- telescope -todo
     {
         'nvim-telescope/telescope.nvim',
         version = false,
@@ -55,6 +54,38 @@ return {
         end,
         keys = function(_, keys)
             return require('config.lazy.utils').generate_keymaps({})
+        end
+    },
+    -- {
+    --     'echasnovski/mini.surround',
+    --     event = "VeryLazy",
+    --     version = "*",
+    --     opts = function()
+    --         local mappings = {}
+    --         local mapping_func = {
+    --             add = 'add_surrond',
+    --             delete = 'delete_surrond',
+    --             replace = 'replace_surrond'
+    --         }
+    --         local map_defines = require('config.keymaps').key_maps.plugin_maps.edit
+    --         vim.print(map_defines)
+    --         for func, map_define in pairs(mapping_func) do
+    --             mappings[func] = map_defines[map_define].lhs
+    --         end
+    --         vim.print(mappings)
+    --         return {
+    --             mappings = mappings
+    --         }
+    --     end
+    -- },
+    {
+        "kylechui/nvim-surround",
+        version = "*", -- Use for stability; omit to use `main` branch for the latest features
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
         end
     }
 }

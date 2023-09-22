@@ -5,10 +5,16 @@ local key_maps = {
     basic_maps = {
         emacs_like = {
             forward = {
-                enable = false,
+                enable = true,
                 mode = "i",
                 lhs = [[<C-f>]],
                 rhs = [[<right>]]
+            },
+            backward = {
+                enable = true,
+                mode = "i",
+                lhs = [[C-b]],
+                rhs = [[<right]]
             }
         }
     },
@@ -284,6 +290,30 @@ local key_maps = {
                 lhs = 'gf',
                 opts = {
                     desc = "fort document"
+                }
+            }
+        }
+        ,edit = {
+            add_surrond = {
+                enable = true,
+                mode = 'n',
+                lhs = "sa",
+                opts = {
+                    desc = "add surrond"
+                }
+            },
+            delete_surrond = {
+                enalbe = true,
+                mode = 'n',
+                opts = {
+                    desc = "delete surrond"
+                }
+            },
+            replace_surrond = {
+                enable = true,
+                mode = 'n',
+                opts = {
+                    desc = "replace surrond"
                 }
             }
         }
