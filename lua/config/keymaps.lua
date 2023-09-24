@@ -15,6 +15,24 @@ local key_maps = {
                 mode = "i",
                 lhs = [[C-b]],
                 rhs = [[<right]]
+            },
+            go_to_end = {
+                enable = true,
+                mode = "i",
+                lhs ="<C-e>",
+                rhs = "<esc>$a"
+            },
+            go_to_begin = {
+                enable = true,
+                mode = "i",
+                lhs ="<C-a>",
+                rhs = "<esc>0i"
+            },
+            delete_to_end = {
+                enable = true,
+                mode = "i",
+                lhs ="<C-k>",
+                rhs = "<esc>d$i"
             }
         }
     },

@@ -114,6 +114,8 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
+        tag = "v0.9.1",
+        enabled = true,
         config = function(_, opts)
             require('nvim-treesitter.configs').setup(opts)
         end,
@@ -128,7 +130,6 @@ return {
                 "json",
                 "lua",
                 "luadoc",
-                "luap",
                 "markdown",
                 "markdown_inline",
                 "python",

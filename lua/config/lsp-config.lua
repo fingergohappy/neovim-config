@@ -3,14 +3,14 @@ local M = {}
 
 -- language config 
 local lang_config = {
-    lua_ls = {
-        settings = {
-            Lua = {
-                workspace = { checkThirdParty = false },
-                telemetry = { enable = false },
-            }
-        }
-    },
+    -- lua_ls = {
+    --     settings = {
+    --         Lua = {
+    --             workspace = { checkThirdParty = false },
+    --             telemetry = { enable = false },
+    --         }
+    --     }
+    -- },
     pyright = {
         settings = {}
     },
