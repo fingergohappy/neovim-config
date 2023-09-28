@@ -26,13 +26,13 @@ local key_maps = {
                 enable = true,
                 mode = "i",
                 lhs ="<C-a>",
-                rhs = "<esc>0i"
+                rhs = "<esc>^i"
             },
             delete_to_end = {
                 enable = true,
                 mode = "i",
                 lhs ="<C-k>",
-                rhs = "<esc>d$i"
+                rhs = "<esc>d$a"
             }
         }
     },
