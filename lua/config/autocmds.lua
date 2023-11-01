@@ -11,3 +11,11 @@
 --     pattern = { "*" },
 --     command = "normal zx",
 -- })
+
+
+local formatAutoGroup = vim.api.nvim_create_augroup("FormatAutoGroup",{clear = true})
+
+
+
+
+vim.api.nvim_create_autocmd({"BufWritePost"},{pattern = {"*"},command = "FormatWrite"})

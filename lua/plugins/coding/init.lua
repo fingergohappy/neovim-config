@@ -218,4 +218,23 @@ return {
             }
         end
     },
+    {
+        "mhartington/formatter.nvim",
+        name = "formatter",
+        event = "BufEnter",
+        enabled = true,
+        config = function(LazyPlugin,opts)
+            local opts = {
+                logging = true,
+                log_level = vim.log.levels.WARN,
+                filetype = {
+                    vue = {
+                        require("formatter.filetypes.vue").prettier(),
+                        _
+                    }
+                }
+            }
+            require("formatter").setup(opts)
+        end
+    }
 }

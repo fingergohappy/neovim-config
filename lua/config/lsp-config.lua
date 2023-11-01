@@ -44,6 +44,9 @@ local lang_config = {
     },
     biome = {
         settings = {}
+    },
+    volar = {
+
     }
 }
 

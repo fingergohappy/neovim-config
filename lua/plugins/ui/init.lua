@@ -1,10 +1,19 @@
 local generate_keymaps = require('config.lazy.utils').generate_keymaps
 
 return {
+    -- dracula
+    {
+        "Mofiqul/dracula.nvim",
+        lazy = true,
+        opts = {
+            transparent_bg = true,
+            show_end_of_buffer = true
+        }
+    },
     -- catppuccin
     {
         "folke/tokyonight.nvim",
-        lazy = false,
+        lazy = true,
         dependencies = {
             -- "nvim-lualine/lualine.nvim",
             "nvim-tree/nvim-web-devicons",
@@ -17,9 +26,7 @@ return {
             --     options = {
             --         theme = 'tokyonight'
             --     },
-            -- })
-            -- require('barbecue').setup {
-            --     theme = 'tokyonight',
+            -- }) require('barbecue').setup { theme = 'tokyonight',
             -- }
         end,
         opts = {
@@ -34,7 +41,7 @@ return {
     },
     {
         "catppuccin/nvim",
-        lazy = true,
+        lazy = false,
         priority = 1000,
         name = "catppuccin",
         opts = {
