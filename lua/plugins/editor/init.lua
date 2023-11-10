@@ -8,11 +8,32 @@ return {
         -- or                              , branch = '0.1.x',
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+            {'nvim-telescope/telescope-live-grep-args.nvim',version = '^1.0.0'}
         },
         config = function(_, opts)
+            local opts  = {
+                extensions = {
+                    fzf = {
+                        fuzzy = true,                   -- false will only do exact matching
+                        override_generic_sorter = true, -- override the generic sorter
+                        override_file_sorter = true,    -- override the file sorter
+                        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+                        -- the default case_mode is "smart_case"
+                    },
+                    live_grep_args = {
+                        mappings = {
+                            i = {
+                                ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                                ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+                            }
+                        }
+                    }
+                }
+            }
             require('telescope').setup(opts)
             require("telescope").load_extension("projects")
+            require("telescope").load_extension("live_grep_args")
         end,
         keys = function(_, keys)
             local func_map = {
@@ -22,24 +43,32 @@ return {
                 { 'finder', 'find_command',        '<cmd>Telescope commands<cr>',                     '<cmd>Telescope commands<cr>' },
                 { 'finder', 'find_mark',           '<cmd>Telescope marks<cr>' },
                 { 'finder', 'find_resume',         '<cmd>Telescope resume<cr>' },
-                { 'finder', 'find_project_grep',   '<cmd>Telescope live_grep<cr>' },
+                { 'finder', 'find_project_grep',   '<cmd>Telescope live_grep_args<cr>' },
                 -- todo
                 { 'finder', 'find_tag',            '<Nop>' },
                 { 'finder', 'find_root_file',      '<Nop>' },
             }
             return require('config.lazy.utils').generate_keymaps(func_map)
         end,
-        opts = {
-            extensions = {
-                fzf = {
-                    fuzzy = true,                   -- false will only do exact matching
-                    override_generic_sorter = true, -- override the generic sorter
-                    override_file_sorter = true,    -- override the file sorter
-                    case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
-                    -- the default case_mode is "smart_case"
-                }
-            }
-        }
+        -- opts = {
+        --     extensions = {
+        --         fzf = {
+        --             fuzzy = true,                   -- false will only do exact matching
+        --             override_generic_sorter = true, -- override the generic sorter
+        --             override_file_sorter = true,    -- override the file sorter
+        --             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+        --             -- the default case_mode is "smart_case"
+        --         },
+        --         live_grep_args = {
+        --             mappings = {
+        --                 i = {
+        --                     ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+        --                     ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
+        --                 }
+        --             }
+        --         }
+        --     }
+        -- }
 
     },
     --  project managers

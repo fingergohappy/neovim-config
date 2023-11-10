@@ -13,7 +13,7 @@ return {
     -- catppuccin
     {
         "folke/tokyonight.nvim",
-        lazy = true,
+        lazy = false,
         dependencies = {
             -- "nvim-lualine/lualine.nvim",
             "nvim-tree/nvim-web-devicons",
