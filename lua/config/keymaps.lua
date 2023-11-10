@@ -13,8 +13,8 @@ local key_maps = {
             backward = {
                 enable = true,
                 mode = "i",
-                lhs = [[C-b]],
-                rhs = [[<right]]
+                lhs = [[<C-b>]],
+                rhs = [[<left>]]
             },
             go_to_end = {
                 enable = true,
@@ -33,6 +33,14 @@ local key_maps = {
                 mode = "i",
                 lhs ="<C-k>",
                 rhs = "<esc>d$a"
+            }
+        },
+        enhance = {
+            switch_buffer = {
+                enable = true,
+                mode = "i",
+                lhs = "<C-^>",
+                rhs = "<cmd>b#<cr>"
             }
         }
     },

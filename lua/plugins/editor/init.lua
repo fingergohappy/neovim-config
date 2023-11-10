@@ -26,7 +26,15 @@ return {
                             i = {
                                 ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
                                 ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
-                            }
+                            },
+                        }
+                    }
+                },
+                defaults = {
+                    mappings = {
+                        n = {
+                            d = require("telescope.actions").delete_buffer,
+                            q = require("telescope.actions").close
                         }
                     }
                 }
@@ -121,7 +129,14 @@ return {
         "folke/flash.nvim",
         event = "VeryLazy",
         ---@type Flash.Config
-        opts = {},
+        opts = {
+            search = {
+                mode = 'fuzzy',
+            },
+            jump = {
+                autojump = true
+            }
+        },
         -- stylua: ignore
         keys = {
             { "s", mode = { "n", "o", "x" }, function() require("flash").jump() end, desc = "Flash" },
@@ -130,5 +145,5 @@ return {
             { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
             { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
-    }
+    },
 }
