@@ -120,7 +120,6 @@ return {
             require('nvim-treesitter.configs').setup(opts)
         end,
         opts = {
-            -- A list of parser names, or "all" (the five listed parsers should always be installed)
             ensure_installed = {
                 "bash",
                 "c",
@@ -141,28 +140,10 @@ return {
                 "vimdoc",
                 "yaml",
             },
-
-            -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = true,
-
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
             auto_install = true,
-
-            -- List of parsers to ignore installing (or "all")
-            -- ignore_install = { "javascript" },
-
-            ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-            -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
             highlight = {
                 enable = true,
-
-                -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-                -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-                -- the name of the parser)
-                -- list of language that will be disabled
-                -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
                 disable = function(lang, buf)
                     local max_filesize = 100 * 1024 -- 100 KB
                     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -170,12 +151,6 @@ return {
                         return true
                     end
                 end,
-
-                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-                -- Using this option may slow down your editor, and you may see some duplicate highlights.
-                -- Instead of true it can also be a list of languages
-                additional_vim_regex_highlighting = false,
             },
             incremental_selection = {
                 enable = true,
@@ -193,30 +168,34 @@ return {
         },
     },
     {
-        "echasnovski/mini.pairs",
-        event = "VeryLazy",
-        opts = {},
+        "nvim-treesitter/nvim-treesitter-context",
+        -- event = "VeryLazy",
+        lazy = false,
+        opts = {
+            separator = '⋅',
+            mode = "curosr",
+            zindex = 50
+        },
+        config = function (LazyPlugin,opts)
+            require("treesitter-context").setup(opts)
+            vim.api.nvim_create_user_command('GoToContext',require("treesitter-context").go_to_context,{});
+        end,
+        dependencies  = {
+            "nvim-treesitter/nvim-treesitter"
+        }
     },
     {
-        "echasnovski/mini.comment",
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        opts = {} -- this is equalent to setup({}) function
+    },
+    -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
+    {
+        'numToStr/Comment.nvim',
         event = "VeryLazy",
-        opts = function()
-            -- k: custom define func v: plugin define func
-            local func_maps = {
-                comment = 'comment',
-                comment_line = 'comment_line',
-                comment_text_object = 'textobject',
-            }
-            local map_defines = require('config.keymaps').key_maps.plugin_maps.code
-            local mappings = {}
-            for k, v in pairs(func_maps) do
-                local map_define = map_defines[k]
-                mappings[v] = map_define.lhs
-            end
-            return {
-                mappings = mappings
-            }
-        end
+        opts = {
+            -- add any options here
+        },
     },
     {
         "mhartington/formatter.nvim",
@@ -226,12 +205,23 @@ return {
         config = function(LazyPlugin,opts)
             local opts = {
                 logging = true,
-                log_level = vim.log.levels.WARN,
+                log_level = vim.log.levels.WARNING,
                 filetype = {
                     vue = {
                         require("formatter.filetypes.vue").prettier(),
                         _
+                    },
+                    c = {
+                        require("formatter.filetypes.c").clangformat(),
+                        _
                     }
+                    -- defautl use lsp format
+                    -- ["*"] = {
+                    --     require("formatter.filetypes.any").remove_trailing_whitespace,
+                    --     function()
+                    --         vim.lsp.buf.format({async = true})
+                    --     end
+                    -- }
                 }
             }
             require("formatter").setup(opts)

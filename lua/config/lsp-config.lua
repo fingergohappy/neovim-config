@@ -11,6 +11,9 @@ local lang_config = {
     --         }
     --     }
     -- },
+    clangd = {
+        settings = {}
+    },
     pyright = {
         settings = {}
     },

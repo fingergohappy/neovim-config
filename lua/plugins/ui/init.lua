@@ -53,10 +53,14 @@ return {
                 flash = true,
                 gitsigns = true,
                 illuminate = true,
-                indent_blankline = { enabled = true },
+                indent_blankline = {
+                    enabled = true,
+                    scope_color = "macchiato", -- catppuccin color (eg. `lavender`) Default: text
+                    colored_indent_levels = true,
+                },
                 lsp_trouble = true,
                 mason = true,
-                mini = true,
+                -- mini = true,
                 native_lsp = {
                     enabled = true,
                     underlines = {
@@ -93,31 +97,20 @@ return {
         }
     },
     {
-        "echasnovski/mini.indentscope",
-        version = false, -- wait till new 0.7.0 release to put it back on semver
-        event = { "BufReadPre", "BufNewFile" },
+        "shellRaining/hlchunk.nvim",
+        event = { "UIEnter" },
         opts = {
-            options = { try_as_border = true },
-        },
-        init = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = {
-                    "help",
-                    "alpha",
-                    "dashboard",
-                    "neo-tree",
-                    "Trouble",
-                    "lazy",
-                    "mason",
-                    "notify",
-                    "toggleterm",
-                    "lazyterm",
+            chunk = {
+
+                style = {
+                    { fg = "#6d9c6f" },
+                    { fg = "#c21f30" }, -- this fg is used to highlight wrong chunk
                 },
-                callback = function()
-                    vim.b.miniindentscope_disable = true
-                end,
-            })
-        end,
+            }
+        },
+        --[[ config = function()
+            require("hlchunk").setup({})
+        end ]]
     },
     {
         "nvim-tree/nvim-tree.lua",

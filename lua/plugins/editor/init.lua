@@ -58,26 +58,6 @@ return {
             }
             return require('config.lazy.utils').generate_keymaps(func_map)
         end,
-        -- opts = {
-        --     extensions = {
-        --         fzf = {
-        --             fuzzy = true,                   -- false will only do exact matching
-        --             override_generic_sorter = true, -- override the generic sorter
-        --             override_file_sorter = true,    -- override the file sorter
-        --             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
-        --             -- the default case_mode is "smart_case"
-        --         },
-        --         live_grep_args = {
-        --             mappings = {
-        --                 i = {
-        --                     ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-        --                     ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob " }),
-        --                 }
-        --             }
-        --         }
-        --     }
-        -- }
-
     },
     --  project managers
     {
@@ -93,28 +73,6 @@ return {
             return require('config.lazy.utils').generate_keymaps({})
         end
     },
-    -- {
-    --     'echasnovski/mini.surround',
-    --     event = "VeryLazy",
-    --     version = "*",
-    --     opts = function()
-    --         local mappings = {}
-    --         local mapping_func = {
-    --             add = 'add_surrond',
-    --             delete = 'delete_surrond',
-    --             replace = 'replace_surrond'
-    --         }
-    --         local map_defines = require('config.keymaps').key_maps.plugin_maps.edit
-    --         vim.print(map_defines)
-    --         for func, map_define in pairs(mapping_func) do
-    --             mappings[func] = map_defines[map_define].lhs
-    --         end
-    --         vim.print(mappings)
-    --         return {
-    --             mappings = mappings
-    --         }
-    --     end
-    -- },
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -146,4 +104,13 @@ return {
             { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
         },
     },
+    {
+        "fingergohappy/load-project-config",
+        -- dir = "load-project-config",
+        event = "VeryLazy",
+        -- dev = true
+        opts = {
+
+        }
+    }
 }

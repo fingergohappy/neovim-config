@@ -1,5 +1,5 @@
 require 'config.options'
-require 'config.autocmds'
+require 'config.commands'
 require 'config.highlight'
 require 'config.lazy'
 
