@@ -12,7 +12,7 @@ return {
     spec = nil, ---@type LazySpec
     lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json", -- lockfile generated after running update.
     -- concurrency = jit.os:find("Windows") and (vim.loop.available_parallelism() * 2) or nil, ---@type number limit the maximum amount of concurrent tasks
-    concurrency = 16,
+    concurrency = vim.loop.available_parallelism() * 2,
     git = {
         -- defaults for the `Lazy log` command
         -- log = { "-10" }, -- show the last 10 commits
@@ -111,8 +111,8 @@ return {
     },
     change_detection = {
         -- automatically check for config file changes and reload the ui
-        enabled = true,
-        notify = true, -- get a notification when changes are found
+        enabled = false,
+        notify = false, -- get a notification when changes are found
     },
     performance = {
         cache = {

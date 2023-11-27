@@ -34,4 +34,6 @@ vim.api.nvim_create_autocmd({"BufWritePost"},{pattern = {"*"},command = "FormatW
 -- | |__| |_| | |  | | |  | |/ ___ \| |\  | |_| |
 --  \____\___/|_|  |_|_|  |_/_/   \_\_| \_|____/ 
 --                                               
-
+vim.api.nvim_create_user_command('TreesitterContext', function() require("lazy").load({plugins = {"nvim-treesitter-context"}}) end, {})
+-- vim.api.nvim_create_user_command("Outline",[[AerialToggle right]],{})
+vim.api.nvim_create_user_command("Outline",[[SymbolsOutline]],{})

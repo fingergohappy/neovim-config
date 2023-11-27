@@ -1,19 +1,11 @@
 local generate_keymaps = require('config.lazy.utils').generate_keymaps
 
 return {
-    -- dracula
-    {
-        "Mofiqul/dracula.nvim",
-        lazy = true,
-        opts = {
-            transparent_bg = true,
-            show_end_of_buffer = true
-        }
-    },
-    -- catppuccin
+   -- catppuccin
     {
         "folke/tokyonight.nvim",
         lazy = false,
+        enabled = false,
         dependencies = {
             -- "nvim-lualine/lualine.nvim",
             "nvim-tree/nvim-web-devicons",
@@ -204,6 +196,7 @@ return {
     },
     {
         "rcarriga/nvim-notify",
+        enabled = false,
         event = "VeryLazy",
         dependencies = {
             "folke/noice.nvim"
@@ -230,6 +223,7 @@ return {
     -- better vim.ui
     {
         "stevearc/dressing.nvim",
+        enabled = false,
         event = "VeryLazy",
         init = function()
             ---@diagnostic disable-next-line: duplicate-set-field
@@ -246,7 +240,8 @@ return {
     },
     { 
         "MunifTanjim/nui.nvim",
-        event = "VeryLazy" ,
+        enabled = false,
+        opts = {}
     },
 
 }

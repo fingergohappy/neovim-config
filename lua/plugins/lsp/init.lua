@@ -1,55 +1,52 @@
-local lsp_config = require('config.lsp-config')
-
 return {
     {
         "neovim/nvim-lspconfig",
-        enabled = true,
+    },
+    {
+        "williamboman/mason.nvim",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        config = function() 
+            require("mason").setup{}
+        end
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        -- enabled = false,
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            "folke/neoconf.nvim",
-            "folke/neodev.nvim",
-            {
-                "j-hui/fidget.nvim",
-                tag = "legacy",
-            },
-            "nvimdev/lspsaga.nvim",
         },
         config = function()
-            require("neoconf").setup()
-            require("neodev").setup()
-            require('fidget').setup()
-            require("lspsaga").setup({
-                lightbulb = {
-                    enable = false,
-                    sign = true,
-                    debounce = 10,
-                    sign_priority = 40,
-                    virtual_text = false,
-                    enable_in_insert = true,
-                },
-            })
-            require('mason').setup()
-            require('mason-lspconfig').setup{
-                ensure_installed = lsp_config.get_server_name(),
-                automatic_installation = true,
-                handlers = {
-                    lsp_config.mason_lsp_config_handler,
+            local lang_config = require("plugins.lsp.servers")
+            local lsp_config = require("lspconfig")
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+            require("mason-lspconfig").setup{
+                handlers = {function(server_name)
+                    local server_setting = vim.tbl_get(server_name)
+                    local setup = {
+                        capabilities = capabilities
+                    }
+                    if(server_name) then
+                        setup['settings'] = server_setting
+                    end 
+                    lsp_config[server_name].setup(setup)
+                end
                 }
             }
         end
     },
+    {
+        'nvimdev/lspsaga.nvim',
+        event = {"LspAttach"},
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-tree/nvim-web-devicons',
+        },
+        opts ={
 
-    -- {
-    --     "j-hui/fidget.nvim",
-    --     tag = "legacy",
-    --     event = {"LspAttach"},
-    -- },
-    --
-    -- {
-    --     "nvimdev/lspsaga.nvim",
-    --     event = {"LspAttach"},
-    -- }
-
+        }
+    }
 }

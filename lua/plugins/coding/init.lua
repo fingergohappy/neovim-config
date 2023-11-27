@@ -2,6 +2,7 @@ return {
     -- snippets
     {
         "L3MON4D3/LuaSnip",
+        event = "InsertEnter",
         build = "make install_jsregexp",
         dependencies = {
             "rafamadriz/friendly-snippets",
@@ -115,7 +116,6 @@ return {
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile" },
         tag = "v0.9.1",
-        enabled = true,
         config = function(_, opts)
             require('nvim-treesitter.configs').setup(opts)
         end,
@@ -169,8 +169,11 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter-context",
-        -- event = "VeryLazy",
-        lazy = false,
+        -- enabled = false,
+        -- event = { "BufReadPost", "BufNewFile" },
+        dependencies  = {
+            "nvim-treesitter/nvim-treesitter"
+        },
         opts = {
             separator = '⋅',
             mode = "curosr",
@@ -179,10 +182,7 @@ return {
         config = function (LazyPlugin,opts)
             require("treesitter-context").setup(opts)
             vim.api.nvim_create_user_command('GoToContext',require("treesitter-context").go_to_context,{});
-        end,
-        dependencies  = {
-            "nvim-treesitter/nvim-treesitter"
-        }
+        end
     },
     {
         'windwp/nvim-autopairs',
@@ -192,16 +192,20 @@ return {
     -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
     {
         'numToStr/Comment.nvim',
-        event = "VeryLazy",
         opts = {
             -- add any options here
         },
+        keys = {
+            {"gcc",mode='n'},
+            {"gbc",mode='n'},
+            {"gc",mode='v'},
+            {"gb",mode='v'},
+        }
     },
     {
         "mhartington/formatter.nvim",
         name = "formatter",
-        event = "BufEnter",
-        enabled = true,
+        event = "BufWritePre",
         config = function(LazyPlugin,opts)
             local opts = {
                 logging = true,
@@ -226,5 +230,25 @@ return {
             }
             require("formatter").setup(opts)
         end
+    },
+    -- {
+    --    'stevearc/aerial.nvim', 
+    --     event = {"VeryLazy"},
+    --     opts = {
+    --         backends = { "treesitter", "lsp", "markdown", "man" },
+    --         -- backends = { "treesitter"},
+    --         autojump = true,
+    --         placement = "edge",
+    --         filter_kind = false,
+    --     }
+    -- },
+    {
+        "simrat39/symbols-outline.nvim",
+        event = {"LspAttach"},
+        opts = {
+            auto_preview = true,
+            position = 'right',
+        }
     }
+
 }

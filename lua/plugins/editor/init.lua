@@ -3,9 +3,6 @@ return {
     {
         'nvim-telescope/telescope.nvim',
         version = false,
-        -- tag = '0.1.x',
-        -- branch = '0.1.x',
-        -- or                              , branch = '0.1.x',
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -53,7 +50,7 @@ return {
                 { 'finder', 'find_resume',         '<cmd>Telescope resume<cr>' },
                 { 'finder', 'find_project_grep',   '<cmd>Telescope live_grep_args<cr>' },
                 -- todo
-                { 'finder', 'find_tag',            '<Nop>' },
+                { 'finder', 'find_symbol',          require("telescope.builtin").treesitter },
                 { 'finder', 'find_root_file',      '<Nop>' },
             }
             return require('config.lazy.utils').generate_keymaps(func_map)
@@ -76,16 +73,21 @@ return {
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
             })
-        end
+        end,
+        keys = {
+            {"cs",'n'},
+            {"ds",'n'},
+            {"ys",'n'}
+        }
     },
     {
         "folke/flash.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
         ---@type Flash.Config
         opts = {
             search = {

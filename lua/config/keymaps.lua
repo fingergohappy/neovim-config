@@ -1,3 +1,4 @@
+local utils = require("config.utils")
 local M = {}
 
 -- 所有自定义的按键绑定全部在这里设置
@@ -130,10 +131,10 @@ local key_maps = {
                     desc = "find command"
                 }
             },
-            find_tag = {
+            find_symbol = {
                 enable = true,
                 mode = 'n',
-                lhs = '<leader>ft',
+                lhs = '<leader>fs',
                 opts = {
                     desc = "find tag"
                 }
@@ -207,25 +208,25 @@ local key_maps = {
             comment_text_object = {
                 enable = true,
                 mode = 'n',
-                lhs = 'gc',
+                lhs = 'gbc',
                 opts = {
                     desc = 'text object  comment operate'
                 }
-            }
-        },
-        lsp = {
+            },
             go_to_declaration = {
                 enable = true,
                 mode = 'n',
                 lhs = 'gD',
+                rhs = utils.exec_telescop_builtin_func("lsp_definitions"),
                 opts = {
                     desc = 'go to Declaration'
-                }
+                },
             },
             go_to_definition = {
                 enable = true,
                 mode = 'n',
                 lhs = 'gd',
+                rhs = utils.exec_telescop_builtin_func("lsp_definitions",{ reuse_win = true }),
                 opts = {
                     desc = 'go to go to definition'
                 }
@@ -234,6 +235,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = 'gi',
+                rhs = utils.exec_telescop_builtin_func("lsp_implementations",{ reuse_win = true }),
                 opts = {
                     desc = 'go to implementmmention'
                 }
@@ -242,6 +244,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = 'gs',
+                rhs = vim.lsp.buf.hover,
                 opts = {
                     desc = 'show documention'
                 }
@@ -250,6 +253,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = '<leader>ca',
+                rhs = vim.lsp.buf.code_action,
                 opts = {
                     desc = 'show action '
                 }
@@ -258,6 +262,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = 'gt',
+                rhs = utils.exec_telescop_builtin_func("lsp_type_definitions", {reuse_win = true}),
                 opts = {
                     desc = 'go to type definition'
                 }
@@ -266,6 +271,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = ']d',
+                rhs = utils.diagnostic_go_to_with_level(true),
                 opts = {
                     desc = 'next diagnostic'
                 }
@@ -274,6 +280,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = '[d',
+                rhs = utils.diagnostic_go_to_with_level(false),
                 opts = {
                     desc = 'prev diagnostice'
                 }
@@ -282,6 +289,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = ']e',
+                rhs =  utils.diagnostic_go_to_with_level(true,"ERROR"),
                 opts = {
                     desc = 'next error'
                 }
@@ -289,6 +297,7 @@ local key_maps = {
             prev_error = {
                 enable = true,
                 mode = 'n',
+                rhs = utils.diagnostic_go_to_with_level(false,"ERROR"),
                 lhs = '[e',
                 opts = {
                     desc = 'prev error'
@@ -298,6 +307,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = ']w',
+                rhs = utils.diagnostic_go_to_with_level(true,"WARN"),
                 opts = {
                     desc = "next warning"
                 }
@@ -306,6 +316,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = '[w',
+                rhs = utils.diagnostic_go_to_with_level(false,"WARN"),
                 opts = {
                     desc = 'prev warning'
                 }
@@ -314,32 +325,9 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = 'gf',
+                rhs = function() vim.lsp.format{async = true} end,
                 opts = {
                     desc = "fort document"
-                }
-            }
-        }
-        ,edit = {
-            add_surrond = {
-                enable = true,
-                mode = 'n',
-                lhs = "sa",
-                opts = {
-                    desc = "add surrond"
-                }
-            },
-            delete_surrond = {
-                enalbe = true,
-                mode = 'n',
-                opts = {
-                    desc = "delete surrond"
-                }
-            },
-            replace_surrond = {
-                enable = true,
-                mode = 'n',
-                opts = {
-                    desc = "replace surrond"
                 }
             }
         }
@@ -360,18 +348,21 @@ local function generate_with_desc_opts(opts, prefix, group, func)
     return opts
 end
 
--- 初始化基本的绑定,无需lazy load
+-- 初始化已经定义功能的按键绑定
 function M.init_basic_maps()
-    local basic_maps = key_maps.basic_maps
-    for group, m in pairs(basic_maps) do
-        for func, define in pairs(m) do
-            if (define.enable) then
-                opts = generate_with_desc_opts(define.opts, [[<Basic Map>]], group, func)
-                vim.keymap.set(define.mode, define.lhs, define.rhs, opts)
+    for group_name, group_contents in pairs(key_maps) do
+        for sub_group, m in pairs(group_contents) do
+            for func, define in pairs(m) do
+                if (define.enable and vim.tbl_get(define,'rhs'))  then
+                    opts = generate_with_desc_opts(define.opts, group_name, sub_group, func)
+                    vim.keymap.set(define.mode, define.lhs, define.rhs, opts)
+                end
             end
         end
     end
+
 end
+
 
 --生成 lazy vim 需要的keys形式
 function M.get_lazy_keys(group, func, rhs)
