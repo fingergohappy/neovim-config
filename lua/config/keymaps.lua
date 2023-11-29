@@ -253,7 +253,7 @@ local key_maps = {
                 enable = true,
                 mode = 'n',
                 lhs = '<leader>ca',
-                rhs = vim.lsp.buf.code_action,
+                rhs = function() require('lspsaga.codeaction'):code_action() end,
                 opts = {
                     desc = 'show action '
                 }

@@ -4,8 +4,8 @@ return {
    -- catppuccin
     {
         "folke/tokyonight.nvim",
-        lazy = false,
-        enabled = false,
+        enabled = true,
+        cond = vim.g.neovide,
         dependencies = {
             -- "nvim-lualine/lualine.nvim",
             "nvim-tree/nvim-web-devicons",

@@ -11,6 +11,8 @@ go.sidescrolloff = 5
 wo.relativenumber=true
 wo.numberwidth=1
 
+-- opt.statuscolumn=" "
+wo.signcolumn="yes"
 -- curosr line
 wo.cursorline=true
 wo.cursorlineopt='screenline'
@@ -54,6 +56,7 @@ opt.winminwidth = 5 -- Minimum window width
 g.mapleader = " "
 
 
+wo.wrap = false
 
 -- disable netrw
 vim.g.loaded_netrw = 1

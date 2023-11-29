@@ -37,3 +37,5 @@ vim.api.nvim_create_autocmd({"BufWritePost"},{pattern = {"*"},command = "FormatW
 vim.api.nvim_create_user_command('TreesitterContext', function() require("lazy").load({plugins = {"nvim-treesitter-context"}}) end, {})
 -- vim.api.nvim_create_user_command("Outline",[[AerialToggle right]],{})
 vim.api.nvim_create_user_command("Outline",[[SymbolsOutline]],{})
+
+

@@ -11,3 +11,10 @@ key_maps.init_basic_maps()
 -- set color scheme
 vim.cmd([[colorscheme  catppuccin]])
 -- vim.cmd [[colorscheme tokyonight-storm]]
+
+
+
+-- 放到最后面,防止默认的覆盖
+if vim.g.neovide then
+    require 'config.neovide'
+end
