@@ -135,6 +135,7 @@ return {
         "fingergohappy/load-project-config",
         -- dir = "load-project-config",
         event = "VeryLazy",
+        enabled=vim.g.start_mode==1,
         -- dev = true
         opts = {
 

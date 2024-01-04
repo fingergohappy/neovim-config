@@ -15,4 +15,5 @@ M.diagnostic_go_to_with_level = function (is_next,level)
     end
 end
 
+
 return M

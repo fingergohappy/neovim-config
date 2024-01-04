@@ -10,4 +10,5 @@ function M.generate_keymaps(func_mappings)
     return result
 end
 
+
 return M

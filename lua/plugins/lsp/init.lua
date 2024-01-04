@@ -14,6 +14,10 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         -- enabled = false,
+        -- enabled = function()
+        --     return vim.g.start_mode == 1
+        -- end,
+        enabled=vim.g.start_mode==1,
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
@@ -48,5 +52,5 @@ return {
         opts ={
 
         }
-    }
+    },
 }

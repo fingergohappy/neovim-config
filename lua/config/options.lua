@@ -67,3 +67,7 @@ opt.foldenable = false
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.splitright = true
 -- opt.verbose = 10
+--
+--
+--
+opt.clipboard="unnamedplus"

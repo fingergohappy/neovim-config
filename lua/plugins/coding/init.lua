@@ -4,6 +4,7 @@ return {
         "L3MON4D3/LuaSnip",
         event = "InsertEnter",
         build = "make install_jsregexp",
+        enabled=vim.g.start_mode==1,
         dependencies = {
             "rafamadriz/friendly-snippets",
             config = function()
@@ -31,53 +32,21 @@ return {
     },
     {
         "hrsh7th/nvim-cmp",
-        version = false, -- last release is way too old
-        event = "InsertEnter",
+        -- version = false, -- last release is way too old
+        event = {"InsertEnter","CmdlineEnter"},
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            {
-                "saadparwaiz1/cmp_luasnip",
-                dependencies = {
-                    "L3MON4D3/LuaSnip",
-                    dependencies = {
-                        "rafamadriz/friendly-snippets",
-                    }
-                }
-            },
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            "saadparwaiz1/cmp_luasnip",
         },
-        opts = function()
-            vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+        opts = {
+
+        },
+        config = function()
             local cmp = require("cmp")
-            local defaults = require("cmp.config.default")()
-
-            local gen_key_map_from_define = function()
-                local result = {}
-                -- 补全和定义的按键的映射关系
-                local func_maps = {
-                    select_next_item = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    select_prev_item = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                    scroll_doc_down  = cmp.mapping.scroll_docs(-4),
-                    scroll_doc_up    = cmp.mapping.scroll_docs(-4),
-                    complete         = cmp.mapping.complete(),
-                    cancel_complete  = cmp.mapping.abort(),
-                    confirm_item     = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                    replace_complete = cmp.mapping.confirm({
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = true,
-                    }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                }
-                local defined_maps = require('config.keymaps').key_maps.plugin_maps.complete
-                for func, ncmp_func in pairs(func_maps) do
-                    local map_define = defined_maps[func]
-                    result[map_define.lhs] = ncmp_func
-                end
-                return result
-            end
-
-            return {
+            cmp.setup({
                 completion = {
                     completeopt = "menu,menuone,noinsert",
                 },
@@ -86,36 +55,47 @@ return {
                         require("luasnip").lsp_expand(args.body)
                     end,
                 },
-                mapping = cmp.mapping.preset.insert(gen_key_map_from_define()),
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                    { name = "buffer" },
-                    { name = "path" },
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.abort(),
+                    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
-                formatting = {
-                    format = function(_, item)
-                        local icons = require("config.ui-config").icons.kinds
-                        if icons[item.kind] then
-                            item.kind = icons[item.kind] .. item.kind
-                        end
-                        return item
-                    end,
-                },
-                experimental = {
-                    ghost_text = {
-                        hl_group = "CmpGhostText",
-                    },
-                },
-                sorting = defaults.sorting,
-            }
-        end,
+                sources = cmp.config.sources({
+                    { name = 'nvim_lsp' },
+                    { name = 'luasnip' }, -- For luasnip users.
+                    {name = "copilot"}
+                }, {
+                        { name = 'buffer' },
+                    })
+            })
+            -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+            cmp.setup.cmdline({ '/', '?' }, {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = 'buffer' }
+                }
+            })
+            -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+            cmp.setup.cmdline(':', {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources(
+                    {
+                        { name = 'path' }
+                    }, {
+                        { name = 'cmdline' }
+                    })
+            })
+        end
     },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        event = { "BufReadPost", "BufNewFile" },
+        -- event = { "BufReadPost", "BufNewFile" },
+        event = {"syntax"},
         tag = "v0.9.1",
+        enabled=vim.g.start_mode==1,
         config = function(_, opts)
             require('nvim-treesitter.configs').setup(opts)
         end,
