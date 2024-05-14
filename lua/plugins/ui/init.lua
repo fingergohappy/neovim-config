@@ -237,5 +237,15 @@ return {
                 global_status = true,
             }
         }
+    },
+    {
+        'gen740/SmoothCursor.nvim',
+        event = "BufEnter",
+        opts = {
+           type = "matrix" 
+        },
+        config = function(_,opts)
+            require('smoothcursor').setup(opts)
+        end
     }
 }
