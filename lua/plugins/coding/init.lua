@@ -40,6 +40,7 @@ return {
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-cmdline',
             "saadparwaiz1/cmp_luasnip",
+            "zbirenbaum/copilot-cmp"
         },
         opts = {
 
@@ -64,8 +65,8 @@ return {
                 }),
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
-                    { name = 'luasnip' }, -- For luasnip users.
-                    {name = "copilot"}
+                    {name = "copilot"},
+                    { name = 'luasnip' } -- For luasnip users.
                 }, {
                         { name = 'buffer' },
                     })
@@ -229,6 +230,36 @@ return {
             auto_preview = true,
             position = 'right',
         }
+    },
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        build = ":Copilot auth",
+        opts = {
+            suggestion = { enabled = true},
+            panel = { enabled = true},
+            filetypes = {
+                -- markdown = true,
+                -- help = true,
+                ["*"] = true
+            },
+        },
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        dependencies = "copilot.lua",
+        opts = {},
+        config = function(_, opts)
+            local copilot_cmp = require("copilot_cmp")
+            copilot_cmp.setup(opts)
+            -- attach cmp source whenever copilot attaches
+            -- fixes lazy-loading issues with the copilot cmp source
+            -- LazyVim.lsp.on_attach(function(client)
+            --     if client.name == "copilot" then
+            --         copilot_cmp._on_insert_enter({})
+            --     end
+            -- end)
+        end,
     }
 
 }
