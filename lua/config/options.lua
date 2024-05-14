@@ -71,3 +71,4 @@ opt.splitright = true
 --
 --
 opt.clipboard="unnamedplus"
+opt.clipboard="unnamed"
