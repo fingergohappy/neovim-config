@@ -4,7 +4,6 @@ return {
     -- catppuccin
     {
         "folke/tokyonight.nvim",
-        enabled = true,
         cond = vim.g.neovide,
         dependencies = {
             -- "nvim-lualine/lualine.nvim",
@@ -30,6 +29,51 @@ return {
                 floats = "transparent"
             }
         }
+    },
+    {
+        'Mofiqul/dracula.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require('dracula').setup({
+                show_end_of_buffer = true, -- default false
+                -- use transparent background
+                transparent_bg = true, -- default false
+                -- set custom lualine background color
+                lualine_bg_color = "#44475a", -- default nil
+                -- set italic comment
+                italic_comment = true, -- default false
+            })
+        end,
+    },
+    {
+        "scottmckendry/cyberdream.nvim",
+        lazy = true,
+        priority = 1000,
+        opts = {
+            -- Enable transparent background
+            transparent = true,
+            -- Enable italics comments
+            italic_comments = true,
+            -- Replace all fillchars with ' ' for the ultimate clean look
+            hide_fillchars = true,
+            theme = {
+                highlights = {
+                    -- Highlight groups to override, adding new groups is also possible
+                    -- See `:h highlight-groups` for a list of highlight groups or run `:hi` to see all groups and their current values
+
+                    -- Example:
+                    Comment = { fg = "#696969", bg = "NONE", italic = true },
+
+                    -- Complete list can be found in `lua/cyberdream/theme.lua`
+                }
+            }
+        }
+    },
+    {
+        "shaunsingh/solarized.nvim",
+        lazy = true,
+        priority = 1000
     },
     {
         "catppuccin/nvim",
@@ -164,7 +208,7 @@ return {
 
     {
         "folke/noice.nvim",
-        enabled = true,
+        enabled = false,
         event = "VeryLazy",
         dependencies = {
             "MunifTanjim/nui.nvim",
@@ -201,6 +245,7 @@ return {
     },
     {
         "rcarriga/nvim-notify",
+        enabled = false,
         keys = {
             {
                 "<leader>un",
@@ -226,6 +271,7 @@ return {
     {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
+        -- enable = false,
         dependencies = {
             "nvim-tree/nvim-web-devicons"
         },
@@ -238,14 +284,10 @@ return {
             }
         }
     },
-    {
-        'gen740/SmoothCursor.nvim',
+    { 
+        'echasnovski/mini.animate', 
+        version = '*' ,
         event = "BufEnter",
-        opts = {
-           type = "matrix" 
-        },
-        config = function(_,opts)
-            require('smoothcursor').setup(opts)
-        end
-    }
+        opts = {}
+    },
 }
