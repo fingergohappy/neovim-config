@@ -92,6 +92,7 @@ return {
     },
     {
         "nvim-treesitter/nvim-treesitter",
+        -- enabled = false,
         build = ":TSUpdate",
         -- event = { "BufReadPost", "BufNewFile" ,"BufEnter"},
         event = {"syntax"},
@@ -101,7 +102,6 @@ return {
             ensure_installed = {
                 "bash",
                 "c",
-                "html",
                 "javascript",
                 "jsdoc",
                 "json",

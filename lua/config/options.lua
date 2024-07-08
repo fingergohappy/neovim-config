@@ -20,15 +20,14 @@ wo.cursorlineopt='screenline'
 -- wo.colorcolumn='10'
 
 -- config tab wdith 
-opt.tabstop=4
-opt.softtabstop=4
-opt.shiftwidth=4
+opt.tabstop=2
+opt.softtabstop=2
+opt.shiftwidth=2
 opt.expandtab=true
 
 -- autointent
 bo.autoindent=true
 bo.smartindent=true
-
 go.smartcase=true
 go.ignorecase=true
 
