@@ -21,7 +21,7 @@ local formatAutoGroup = vim.api.nvim_create_augroup("FormatAutoGroup",{clear = t
 -- /_/   \_\___/  |_| \___/       \____\___/|_|  |_|_|  |_/_/   \_\_| \_|____/ 
                                                                             
 
-vim.api.nvim_create_autocmd({"BufWritePost"},{pattern = {"*"},command = "FormatWrite"})
+-- vim.api.nvim_create_autocmd({"BufWritePost"},{pattern = {"*"},command = "FormatWrite"})
 
 
 
