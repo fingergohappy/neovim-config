@@ -5,7 +5,7 @@ local wo = vim.wo
 local g = vim.g
 local opt = vim.opt
 -- linenumber
-o.number = true
+-- o.number = true
 go.scrolloff = 5
 go.sidescrolloff = 5
 wo.relativenumber=true
