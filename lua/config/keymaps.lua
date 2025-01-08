@@ -4,7 +4,7 @@ local M = {}
 -- 所有自定义的按键绑定全部在这里设置
 local key_maps = {
     basic_maps = {
-        emacs_like = {
+      emacs_like = {
             forward = {
                 enable = true,
                 mode = "i",
@@ -42,8 +42,8 @@ local key_maps = {
                 mode = "i",
                 lhs = "<C-^>",
                 rhs = "<cmd>b#<cr>"
-            }
-        }
+            },
+       }
     },
     plugin_maps = {
         file_tree = {

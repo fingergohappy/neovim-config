@@ -12,9 +12,14 @@ key_maps.init_basic_maps()
 -- vim.cmd([[colorscheme  cyberdream]])
 
 -- vim.cmd([[colorscheme  tokyonight-moon]])
-vim.cmd([[colorscheme  catppuccin-macchiato]])
+-- vim.cmd([[colorscheme  catppuccin-macchiato]])
+vim.cmd([[colorscheme  catppuccin-latte]])
+
+-- vim.cmd([[colorscheme  tokyonight-day]])
+
+
 
 -- 放到最后面,防止默认的覆盖
 if vim.g.neovide then
-	require("config.neovide")
+  require("config.neovide")
 end
