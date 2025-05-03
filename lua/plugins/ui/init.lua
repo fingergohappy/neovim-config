@@ -1,100 +1,30 @@
 local generate_keymaps = require("config.lazy.utils").generate_keymaps
 
 return {
-  -- catppuccin
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    enabled = true,
-    priority = 1000,
-    -- cond = vim.g.neovide,
-    dependencies = {
-      -- "nvim-lualine/lualine.nvim",
-      "nvim-tree/nvim-web-devicons",
-      -- "utilyre/barbecue.nvim",
-      -- "SmiteshP/nvim-navic",
-    },
+    "loctvl842/monokai-pro.nvim",
+    enabled = false,
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
     config = function(_, opts)
-      require("tokyonight").setup(opts)
-      -- require('lualine').setup({
-      --     options = {
-      --         theme = 'tokyonight'
-      --     },
-      -- }) require('barbecue').setup { theme = 'tokyonight',
-      -- }
+      require("monokai-pro").setup(opts)
+      vim.cmd [[ colorscheme monokai-pro ]]
     end,
     opts = {
-      style = "storm",
-      transparent = true,
-      terminal_colors = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
-    },
-  },
-  {
-    "shaunsingh/solarized.nvim",
-    lazy = false,
-    enabled = true,
-    priority = 1000,
+
+    }
   },
   {
     "catppuccin/nvim",
-    lazy = false,
-    priority = 1000,
-    name = "catppuccin",
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function(_, opts)
+      require("catppuccin").setup(opts)
+      vim.cmd [[ colorscheme catppuccin ]]
+    end,
     opts = {
-      flavour = "macchiato",
-      transparent_background = true,
-      integrations = {
-        alpha = true,
-        cmp = true,
-        flash = true,
-        gitsigns = true,
-        illuminate = true,
-        indent_blankline = {
-          enabled = true,
-          scope_color = "macchiato", -- catppuccin color (eg. `lavender`) Default: text
-          colored_indent_levels = true,
-        },
-        lsp_trouble = true,
-        mason = true,
-        -- mini = true,
-        native_lsp = {
-          enabled = true,
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-        },
-        navic = { enabled = true, custom_bg = "lualine" },
-        neotest = true,
-        noice = true,
-        notify = true,
-        nvimtree = true,
-        semantic_tokens = true,
-        telescope = true,
-        treesitter = true,
-        which_key = true,
-      },
-    },
-  },
-  {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    opts = {
-      style = "night",
-      transparent = true,
-      terminal_colors = true,
-      sidebars = { "help" },
-      styles = {
-        sidebars = "transparent",
-        comments = { italic = true },
-      },
-    },
+      flavour = "latte",   -- latte, frappe, macchiato, mocha
+    }
   },
   {
     "shellRaining/hlchunk.nvim",

@@ -1,7 +1,8 @@
-vim.o.guifont = "MonacoLigaturized Nerd Font Mono:h16"
+-- vim.o.guifont = "MonacoLigaturized Nerd Font Mono:h12"
+vim.o.guifont = "Maple Mono NF:h14"
 -- vim.o.guifont = "Hack Nerd Font Mono:h15"
-vim.g.neovide_transparency = 0.4
-vim.g.transparency = 0.4
+-- vim.g.neovide_transparency = 0.4
+-- vim.g.transparency = 0.4
 
 
 vim.o.linespace = 4
@@ -21,5 +22,7 @@ vim.g.neovide_padding_bottom = 0
 vim.g.neovide_padding_right = 0
 vim.g.neovide_padding_left = 0
 -- vim.cmd([[colorscheme catppuccin-macchiato]])
-vim.cmd([[colorscheme catppuccin-latte]])
--- vim.g.neovide_theme = 'auto'
+-- vim.cmd([[colorscheme catppuccin-latte]])
+-- vim.cmd [[colorscheme tokyonight-moon]]
+-- vim.cmd([[colorscheme NeoSolarized]])
+vim.g.neovide_theme = 'auto'

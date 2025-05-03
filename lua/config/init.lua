@@ -9,11 +9,12 @@ key_maps.init_basic_maps()
 -- set color scheme
 -- vim.cmd([[colorscheme  catppuccin]])
 -- vim.cmd [[colorscheme tokyonight-storm]]
--- vim.cmd([[colorscheme  cyberdream]])
+--
+-- vim.cmd([[colorscheme solarized]])
 
 -- vim.cmd([[colorscheme  tokyonight-moon]])
 -- vim.cmd([[colorscheme  catppuccin-macchiato]])
-vim.cmd([[colorscheme  catppuccin-latte]])
+-- vim.cmd([[colorscheme  catppuccin-latte]])
 
 -- vim.cmd([[colorscheme  tokyonight-day]])
 
