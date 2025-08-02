@@ -3,7 +3,7 @@ local generate_keymaps = require("config.lazy.utils").generate_keymaps
 return {
   {
     "loctvl842/monokai-pro.nvim",
-    enabled = false,
+    enabled = true,
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function(_, opts)
@@ -11,19 +11,20 @@ return {
       vim.cmd [[ colorscheme monokai-pro ]]
     end,
     opts = {
-
+      filter = 'pro'
     }
   },
   {
     "catppuccin/nvim",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    enabled = false,
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function(_, opts)
       require("catppuccin").setup(opts)
       vim.cmd [[ colorscheme catppuccin ]]
     end,
     opts = {
-      flavour = "latte",   -- latte, frappe, macchiato, mocha
+      flavour = "latte", -- latte, frappe, macchiato, mocha
     }
   },
   {
